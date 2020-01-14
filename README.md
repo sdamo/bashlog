@@ -20,10 +20,11 @@ fi
 После чего для вывода событий следует использовать функцию **bashlog**:
 
 ```
-bashlog INFO "Script running"
+bashlog INFO "Script running" TIME
 ```
 
 где
 
 - **INFO** Событие из списка (ERROR, INFO и др)
 - **Script running** Сообщение
+- **TIME** Вывод времени (По умолчанию время не отображается)
