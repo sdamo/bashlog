@@ -8,7 +8,8 @@
 
 ```
 # Подключение библиотеки цветного вывода (URL проекта: http://git.sdamo.org/sdamo/bashlog)
-BASHLOG="~/scripts/bashlog"
+BASHLOG="${HOME}/scripts/bashlog"
+#BASHLOG=~/scripts/bashlog
 
 if [[ -d "${BASHLOG}" ]]
 then
