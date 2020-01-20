@@ -1,9 +1,32 @@
 #!/usr/bin/env bash
 
+# Проверка входных данных
+if [[ $# -eq 0 ]]
+then
+
+    exit 0
+
+fi
+
 EVENT="$1"
 MESSAGE="$2"
 TIME="$3"
 LOG_FILE="$4"
+
+function read_config() {
+
+    CONFIG=$1
+
+    while IFS=";" read CFG_EVENT CFG_COLOR
+    do
+
+        EVENTS[${CFG_EVENT}]=${CFG_COLOR}
+
+    done < ${CONFIG}
+
+}
+
+declare -A EVENTS
 
 declare -A COLORS=(
     [NO]="\033[0m"
@@ -27,13 +50,17 @@ declare -A COLORS=(
     [BOLD_GRAY]="\033[1;37m"
 )
 
-declare -A EVENTS=(
-    [END]="BLUE"
-    [ERROR]="RED"
-    [INFO]="GREEN"
-    [RUN]="BLUE"
-    [STATUS]="ORANGE"
-)
+# Загрузка конфигурации шаблонов
+if [[ -f ${PWD}/bashlog.config ]]
+then
+
+    read_config ${PWD}/bashlog.config
+
+else
+
+    read_config `dirname $0`/bashlog.config
+
+fi
 
 if [[ -n "${EVENTS[$EVENT]}" ]]
 then
